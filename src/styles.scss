@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+}
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+.custom_container {
+    padding-inline:1.5em ;
+    max-width:72rem;
+}
+.custom_container--wide {
+  padding-inline:1.5em ;
+  max-width:80rem;
+}

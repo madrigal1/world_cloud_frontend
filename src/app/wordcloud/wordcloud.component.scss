@@ -1,0 +1,70 @@
+.wordcloud-result {
+    &__header {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.06);
+        border-bottom: 1px solid #e3e9ef;
+        padding: 1em 0;
+        &__content{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+    &__main-content {
+        width: 100vw;
+        height: 93vh;
+       // outline: 1px solid black;
+        display: flex;
+        &__wordcloud {
+            width:70%;
+            padding: 3em;
+            //outline: 1px solid red;
+            background-color: #25142E;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                object-fit: cover;
+                max-width:100%;
+                max-height:100%;
+            }
+        }
+        &__analytics {
+            width:30%;
+            header {
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-end;
+                padding:0.9em 2em;
+                border-bottom: 1px solid #e3e9ef;
+                h5{
+                    margin-left:10px;
+                }
+                svg {
+                    transform: scale(0.8);
+                }
+            }
+            &__relevant-words {
+                height:80vh;
+                overflow-y: scroll;
+                &__word-card {
+                    display: flex;
+                    flex-direction: row;
+                    padding: 1em 2em;
+                    &__data {
+                        display: flex;
+                        flex-direction: column;
+                        margin-left: 30px;
+                        margin-top: 5px;
+                        h6 {
+                            font-size: 1rem;
+                        }
+                        p {
+                            color:rgb(167, 167, 167);
+                        }
+                    }
+                }
+            }
+           // outline: 1px solid blue;
+        }
+    }
+}
