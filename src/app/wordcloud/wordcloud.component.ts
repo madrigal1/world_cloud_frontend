@@ -28,7 +28,22 @@ export class WordCloudComponent implements OnInit {
         this.freq_data = data.freq_data;
         this.total_relevant_words = data.total_relevant_words;
         console.log(data);
-      })
+        localStorage.setItem("data", JSON.stringify(data));
+      },
+        (err) => {
+          console.log(err)
+          if (this.loading) {
+            let cache: any = localStorage.getItem("data");
+            if (cache != null) {
+              cache = JSON.parse(cache);
+              this.imgb64Src = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+                + cache?.plot_url)
+              this.freq_data = cache.freq_data;
+              this.total_relevant_words = cache.total_relevant_words;
+              this.loading = false;
+            }
+          }
+        })
   }
 
 }
