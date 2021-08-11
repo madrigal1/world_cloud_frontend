@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { getWordCloudResponse, WordCloudService } from '../wordcloud.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-wordcloud',
@@ -8,13 +9,20 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./wordcloud.component.scss']
 })
 export class WordCloudComponent implements OnInit {
-  imgb64Src!: SafeResourceUrl
-  freq_data!: Array<[string, number]>
-  total_relevant_words!: number
+  imgb64Src!: SafeResourceUrl;
+  imgsrc_raw!: string;
+  pdfsrc_raw!: string;
+  freq_data!: Array<[string, number]>;
+  total_relevant_words!: number;
   loading: boolean
+  title = 'appBootstrap';
+  closeResult!: string;
+  imgDownloadFileLink!: SafeResourceUrl;
+  pdfDownloadFileLink!: SafeResourceUrl;
   constructor(
     private wordcloudService: WordCloudService,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private modalService: NgbModal
   ) {
     this.loading = true;
   }
@@ -23,11 +31,7 @@ export class WordCloudComponent implements OnInit {
     this.wordcloudService.fetchWordCloud()
       .subscribe((data: getWordCloudResponse) => {
         this.loading = false;
-        this.imgb64Src = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-          + data.plot_url);
-        this.freq_data = data.freq_data;
-        this.total_relevant_words = data.total_relevant_words;
-        console.log(data);
+        this.addData(data);
         localStorage.setItem("data", JSON.stringify(data));
       },
         (err) => {
@@ -36,14 +40,60 @@ export class WordCloudComponent implements OnInit {
             let cache: any = localStorage.getItem("data");
             if (cache != null) {
               cache = JSON.parse(cache);
-              this.imgb64Src = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-                + cache?.plot_url)
-              this.freq_data = cache.freq_data;
-              this.total_relevant_words = cache.total_relevant_words;
+              this.addData(cache);
               this.loading = false;
             }
           }
         })
   }
+  transformUrl(url: string): SafeResourceUrl {
+    return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+  addData(data: any) {
+    this.imgb64Src = this.transformUrl('data:image/jpg;base64,' + data.plot_url);
+    this.imgsrc_raw = data.plot_url;
+    this.pdfsrc_raw = data.plot_pdf;
+    this.freq_data = data.freq_data;
+    this.total_relevant_words = data.total_relevant_words;
+    var imgDownloadURL = this.dataURLtoFile(`data:image/png;base64,${this.imgsrc_raw}`, 'wordcloud.png');
+    console.log(imgDownloadURL);
+    const imageDownloadFileLink = URL.createObjectURL(imgDownloadURL)
+    console.log(imageDownloadFileLink);
+    this.imgDownloadFileLink = this.transformUrl(imageDownloadFileLink);
+    var pdfDownloadURL = this.dataURLtoFile(`data:application/pdf;base64,${this.pdfsrc_raw}`, 'wordcloud.pdf')
+    console.log(pdfDownloadURL);
+    const pdfDownloadFileLink = URL.createObjectURL(pdfDownloadURL);
+    console.log(pdfDownloadFileLink);
+    this.pdfDownloadFileLink = this.transformUrl(pdfDownloadFileLink);
+    console.log(data);
+  }
+  dataURLtoFile(dataurl: string, filename: string) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/) as RegExpMatchArray,
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
 
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime[1] });
+  }
+
+  open(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 }

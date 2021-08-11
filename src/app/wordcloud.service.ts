@@ -7,6 +7,7 @@ export interface getWordCloudResponse {
   plot_url: string;
   freq_data: Array<[string, number]>;
   total_relevant_words: number;
+  plot_pdf: string;
 }
 
 @Injectable({

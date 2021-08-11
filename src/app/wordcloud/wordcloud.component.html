@@ -1,5 +1,24 @@
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px'}">
 </ngx-loading>
+<!-- modal code -->
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Export Wordcloud</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            <a [href]="imgDownloadFileLink">Download as image</a> or
+            <a [href]="pdfDownloadFileLink">Download as pdf</a>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>
+<!-- modal code end -->
 <article class="wordcloud-result">
     <header class="wordcloud-result__header">
         <div class="custom_container">
@@ -34,6 +53,19 @@
                     </div>
                 </div>
             </section>
+            <footer class="wordcloud-result__main-content__analytics__download" (click)="open(mymodal)">
+                <div class="wordcloud-result__main-content__analytics__download__button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <g fill="none" fill-rule="evenodd" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.8">
+                            <path
+                                d="M4.5 15v3a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-3M8.5 11.5l3.417 3.417 3.416-3.417M12 4.636V13">
+                            </path>
+                        </g>
+                    </svg>
+                    <p>Download</p>
+                </div>
+            </footer>
         </section>
     </article>
 </article>

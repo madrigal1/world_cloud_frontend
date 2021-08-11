@@ -4,6 +4,7 @@
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.06);
         border-bottom: 1px solid #e3e9ef;
         padding: 1em 0;
+        height:10vh;
         &__content{
             display: flex;
             justify-content: space-between;
@@ -12,7 +13,7 @@
     }
     &__main-content {
         width: 100vw;
-        height: 93vh;
+        height: 90vh;
        // outline: 1px solid black;
         display: flex;
         &__wordcloud {
@@ -45,7 +46,7 @@
                 }
             }
             &__relevant-words {
-                height:80vh;
+                height:72vh;
                 overflow-y: scroll;
                 &__word-card {
                     display: flex;
@@ -62,6 +63,26 @@
                         p {
                             color:rgb(167, 167, 167);
                         }
+                    }
+                }
+            }
+            &__download {
+                color:white;
+                background-color: #0088FF;
+                padding:0rem;
+                &__button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor:pointer;
+                    p{
+                        text-align: center;
+                        font-size: 1.5rem;
+                        margin-left: 15px;
+                        margin-top: 10px;
+                    }
+                    svg {
+                        transform: scale(1.5);
                     }
                 }
             }
