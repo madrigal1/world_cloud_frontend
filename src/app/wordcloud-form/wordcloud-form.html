@@ -26,7 +26,7 @@
             </div>
             <br />
             <textarea placeholder="Type or paste your text here or upload a file to generate a word cloud"
-                name="source_text" id="source_text" maxlength="200000" [(ngModel)]="input_text"></textarea>
+                name="source_text" id="source_text" [(ngModel)]="input_text"></textarea>
             <button id="submit-btn" type="submit" (click)="onSubmit()">
                 <div id="submit-btn__content">
                     <span>Generate cloud</span>

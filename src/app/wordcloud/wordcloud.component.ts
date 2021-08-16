@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { getWordCloudResponse, WordCloudService } from '../wordcloud.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,7 +6,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-wordcloud',
   templateUrl: './wordcloud.component.html',
-  styleUrls: ['./wordcloud.component.scss']
+  styleUrls: ['./wordcloud.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class WordCloudComponent implements OnInit {
   imgb64Src!: SafeResourceUrl;
@@ -32,10 +33,11 @@ export class WordCloudComponent implements OnInit {
       .subscribe((data: getWordCloudResponse) => {
         this.loading = false;
         this.addData(data);
+        console.log(data);
         localStorage.setItem("data", JSON.stringify(data));
       },
         (err) => {
-          console.log(err)
+          console.log("eror in reqest" + JSON.stringify(err))
           if (this.loading) {
             let cache: any = localStorage.getItem("data");
             if (cache != null) {

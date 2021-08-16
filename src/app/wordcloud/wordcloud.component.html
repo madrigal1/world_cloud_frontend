@@ -27,45 +27,43 @@
             </div>
         </div>
     </header>
-    <article class="wordcloud-result__main-content">
-        <section class="wordcloud-result__main-content__wordcloud">
-            <img [src]="imgb64Src" alt="failed to retrieve word cloud" />
+    <section class="wordcloud-result__wordcloud">
+        <img [src]="imgb64Src" alt="failed to retrieve word cloud" />
+    </section>
+    <section class="wordcloud-result__analytics">
+        <header>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <g fill="none" fill-rule="nonzero">
+                    <circle cx="16" cy="16" r="16" fill="#E7F9EF"></circle>
+                    <path fill="#12C462"
+                        d="M20.424 16.824c-.363 1.418-1.324 1.981-2.43 2.308-.11.037-.091.146-.091.146l.163 1.127s.018.09.163.073c3.9-.437 6.493-3.4 6.04-7-.472-2.49-2.43-3.453-4.208-3.198-1.796.29-3.029 1.963-2.739 3.762a3.24 3.24 0 0 0 3.102 2.782zM8.358 14.042c.235 1.582 1.577 2.709 3.1 2.782-.38 1.418-1.306 1.981-2.43 2.308-.108.037-.09.146-.09.146l.181 1.127s.018.09.163.073c3.88-.437 6.509-3.4 6.02-7-.454-2.49-2.394-3.453-4.189-3.198a3.313 3.313 0 0 0-2.755 3.762z">
+                    </path>
+                </g>
+            </svg>
+            <h5>Relevant Words</h5>
+        </header>
+        <section class="wordcloud-result__analytics__relevant-words">
+            <div class="wordcloud-result__analytics__relevant-words__word-card"
+                *ngFor="let record of freq_data; index as i;">
+                <p>{{i+1}} .</p>
+                <div class="wordcloud-result__analytics__relevant-words__word-card__data">
+                    <h6>{{record[0]}}</h6>
+                    <p>{{record[1]}} times</p>
+                </div>
+            </div>
         </section>
-        <section class="wordcloud-result__main-content__analytics">
-            <header>
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                    <g fill="none" fill-rule="nonzero">
-                        <circle cx="16" cy="16" r="16" fill="#E7F9EF"></circle>
-                        <path fill="#12C462"
-                            d="M20.424 16.824c-.363 1.418-1.324 1.981-2.43 2.308-.11.037-.091.146-.091.146l.163 1.127s.018.09.163.073c3.9-.437 6.493-3.4 6.04-7-.472-2.49-2.43-3.453-4.208-3.198-1.796.29-3.029 1.963-2.739 3.762a3.24 3.24 0 0 0 3.102 2.782zM8.358 14.042c.235 1.582 1.577 2.709 3.1 2.782-.38 1.418-1.306 1.981-2.43 2.308-.108.037-.09.146-.09.146l.181 1.127s.018.09.163.073c3.88-.437 6.509-3.4 6.02-7-.454-2.49-2.394-3.453-4.189-3.198a3.313 3.313 0 0 0-2.755 3.762z">
+        <footer class="wordcloud-result__analytics__download" (click)="open(mymodal)">
+            <div class="wordcloud-result__analytics__download__button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <g fill="none" fill-rule="evenodd" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.8">
+                        <path
+                            d="M4.5 15v3a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-3M8.5 11.5l3.417 3.417 3.416-3.417M12 4.636V13">
                         </path>
                     </g>
                 </svg>
-                <h5>Relevant Words</h5>
-            </header>
-            <section class="wordcloud-result__main-content__analytics__relevant-words">
-                <div class="wordcloud-result__main-content__analytics__relevant-words__word-card"
-                    *ngFor="let record of freq_data; index as i;">
-                    <p>{{i+1}} .</p>
-                    <div class="wordcloud-result__main-content__analytics__relevant-words__word-card__data">
-                        <h6>{{record[0]}}</h6>
-                        <p>{{record[1]}} times</p>
-                    </div>
-                </div>
-            </section>
-            <footer class="wordcloud-result__main-content__analytics__download" (click)="open(mymodal)">
-                <div class="wordcloud-result__main-content__analytics__download__button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <g fill="none" fill-rule="evenodd" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="1.8">
-                            <path
-                                d="M4.5 15v3a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-3M8.5 11.5l3.417 3.417 3.416-3.417M12 4.636V13">
-                            </path>
-                        </g>
-                    </svg>
-                    <p>Download</p>
-                </div>
-            </footer>
-        </section>
-    </article>
+                <p>Download</p>
+            </div>
+        </footer>
+    </section>
 </article>

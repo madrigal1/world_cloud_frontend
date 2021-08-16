@@ -20,6 +20,9 @@
             #source_text_label {
                 font-size: 2rem;
                 margin-bottom: 0.5em;
+                @media screen and (max-width: 400px) {
+                    font-size:1.6rem;
+                }
             }
             #upload_file_btn {
                box-shadow: 0 1px 3px 0 rgba(0,0,0,.06);
