@@ -1,7 +1,9 @@
-
-body {
-    overflow-y: scroll ;
+@media  screen and (max-width:500px) {
+    body {
+        overflow-y: scroll ;
+    }
 }
+
 .wordcloud-result {
     width: 100vw;
     height:100vh;
